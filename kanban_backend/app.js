@@ -9,7 +9,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://kanban-task-manager.vercel.app", 
+      "https://kanban-task-manager-v5j6-beryl.vercel.app",
     ],
   }),
 );
