@@ -17,6 +17,7 @@ const App = () => {
   } = useTasks();
 
   const [errorDismissed, setErrorDismissed] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
 
   const showError = error && !errorDismissed;
   const handleDismiss = () => setErrorDismissed(true);
@@ -31,15 +32,14 @@ const App = () => {
     totalTasks > 0 ? Math.round((completedCount / totalTasks) * 100) : 0;
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-100">
+    <div className={darkMode ? "app dark" : "app"}>
       {/* Header */}
-      <header className="bg-white border-b border-slate-200 shadow-sm">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-5 flex flex-col sm:flex-row sm:items-center gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center shadow-sm">
+      <header className="header">
+        <div className="header-inner">
+          <div className="brand">
+            <div className="brand-icon">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4 text-white"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -52,34 +52,65 @@ const App = () => {
               </svg>
             </div>
             <div>
-              <h1 className="text-base font-bold text-slate-800 leading-tight">
-                Kanban Board
-              </h1>
-              <p className="text-xs text-slate-400">Task Manager</p>
+              <h1 className="brand-title">Kanban Board</h1>
+              <p className="brand-sub">Task Manager</p>
             </div>
           </div>
 
+          {/* Progress */}
           {!loading && totalTasks > 0 && (
-            <div className="sm:ml-auto flex flex-col items-end gap-1.5 min-w-[160px]">
-              <div className="flex items-center gap-2 text-xs text-slate-500 font-medium">
+            <div className="progress-wrap">
+              <div className="progress-label">
                 <span>
                   {completedCount} / {totalTasks} completed
                 </span>
-                <span className="font-bold text-blue-600">{progressPct}%</span>
+                <span className="progress-pct">{progressPct}%</span>
               </div>
-              <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
+              <div className="progress-bar-track">
                 <div
-                  className="h-full bg-emerald-500 rounded-full transition-all duration-500"
+                  className="progress-bar-fill"
                   style={{ width: `${progressPct}%` }}
                 />
               </div>
             </div>
           )}
+
+          {/* Theme Toggle Button */}
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="theme-toggle"
+            title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          >
+            {darkMode ? (
+              /* Sun icon */
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.592-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.592z" />
+              </svg>
+            ) : (
+              /* Moon icon */
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            )}
+            <span>{darkMode ? "Light" : "Dark"}</span>
+          </button>
         </div>
       </header>
 
       {/* Main */}
-      <main className="flex-1 flex flex-col max-w-5xl w-full mx-auto px-4 sm:px-6 py-6 gap-4">
+      <main className="main-content">
         {showError && (
           <ErrorMessage message={error} onDismiss={handleDismiss} />
         )}
@@ -97,7 +128,7 @@ const App = () => {
       </main>
 
       {/* Footer */}
-      <footer className="text-center py-4 text-xs text-slate-400 border-t border-slate-200 bg-white">
+      <footer className="footer">
         Mini Kanban Task Manager — React + Node.js + Express
       </footer>
     </div>

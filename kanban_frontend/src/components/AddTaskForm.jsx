@@ -17,7 +17,6 @@ const AddTaskForm = ({ onAdd }) => {
     e.preventDefault();
     const trimmed = title.trim();
     if (!trimmed) return;
-
     setSubmitting(true);
     await onAdd(trimmed);
     setTitle("");
@@ -25,10 +24,7 @@ const AddTaskForm = ({ onAdd }) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex gap-2 bg-white rounded-2xl shadow-card border border-slate-100 p-3"
-    >
+    <form onSubmit={handleSubmit} className="add-task-form">
       <input
         type="text"
         value={title}
@@ -36,28 +32,14 @@ const AddTaskForm = ({ onAdd }) => {
         placeholder="Add a new task…"
         disabled={submitting}
         maxLength={120}
-        className="
-          flex-1 px-3 py-2 text-sm rounded-xl
-          bg-slate-50 border border-slate-200
-          placeholder-slate-400 text-slate-700
-          focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent
-          disabled:opacity-50
-          transition
-        "
+        className="add-task-input"
       />
       <button
         type="submit"
         disabled={submitting || !title.trim()}
-        className="
-          flex items-center gap-1.5 px-4 py-2
-          bg-brand-500 hover:bg-brand-600 active:bg-brand-700
-          text-white text-sm font-semibold rounded-xl
-          disabled:opacity-40 disabled:cursor-not-allowed
-          transition-colors shadow-sm
-        "
+        className="add-task-btn"
       >
         {submitting ? (
-          /* Mini spinner while posting */
           <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
         ) : (
           <svg

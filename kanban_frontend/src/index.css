@@ -1,3 +1,269 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ── App Shell ───────────────────────────────────────────── */
+.app {
+  @apply min-h-screen flex flex-col bg-slate-100 text-slate-800 transition-colors duration-300;
+}
+
+.app.dark {
+  @apply bg-gray-900 text-slate-100;
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+.header {
+  @apply bg-white border-b border-slate-200 shadow-sm transition-colors duration-300;
+}
+
+.app.dark .header {
+  @apply bg-gray-800 border-gray-700;
+}
+
+.header-inner {
+  @apply max-w-5xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center gap-4;
+}
+
+/* ── Brand ───────────────────────────────────────────────── */
+.brand {
+  @apply flex items-center gap-3;
+}
+
+.brand-icon {
+  @apply w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center shadow-sm flex-shrink-0;
+}
+
+.brand-icon svg {
+  @apply w-5 h-5 text-white;
+}
+
+.brand-title {
+  @apply text-base font-bold text-slate-800 leading-tight transition-colors duration-300;
+}
+
+.app.dark .brand-title {
+  @apply text-white;
+}
+
+.brand-sub {
+  @apply text-xs text-slate-400;
+}
+
+/* ── Progress ────────────────────────────────────────────── */
+.progress-wrap {
+  @apply flex flex-col items-end gap-1.5 min-w-[150px];
+}
+.progress-label {
+  @apply flex gap-2 text-xs text-slate-500 font-medium;
+}
+
+.app.dark .progress-label {
+  @apply text-slate-400;
+}
+
+.progress-pct {
+  @apply font-bold text-blue-500;
+}
+
+.progress-bar-track {
+  @apply w-full h-1.5 bg-slate-200 rounded-full overflow-hidden;
+}
+.app.dark .progress-bar-track {
+  @apply bg-gray-600;
+}
+
+.progress-bar-fill {
+  @apply h-full bg-emerald-500 rounded-full transition-all duration-500;
+}
+
+/* ── Theme Toggle Button ─────────────────────────────────── */
+.theme-toggle {
+  @apply ml-auto flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-200 transition-all duration-200 cursor-pointer;
+}
+.app.dark .theme-toggle {
+  @apply bg-gray-700 hover:bg-gray-600 text-yellow-400 border-gray-600;
+}
+
+.theme-toggle svg {
+  @apply w-4 h-4;
+}
+
+/* ── Main Content ────────────────────────────────────────── */
+.main-content {
+  @apply flex-1 flex flex-col max-w-5xl w-full mx-auto px-4 sm:px-6 py-6 gap-4;
+}
+
+/* ── Add Task Form ───────────────────────────────────────── */
+.add-task-form {
+  @apply flex gap-2 bg-white rounded-2xl shadow-sm border border-slate-100 p-3 transition-colors duration-300;
+}
+
+.app.dark .add-task-form {
+  @apply bg-gray-800 border-gray-700;
+}
+
+.add-task-input {
+  @apply flex-1 px-3 py-2 text-sm rounded-xl bg-slate-50 border border-slate-200 placeholder-slate-400 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200;
+}
+
+.app.dark .add-task-input {
+  @apply bg-gray-700 border-gray-600 text-slate-100 placeholder-slate-500;
+}
+
+.add-task-btn {
+  @apply flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-sm font-semibold rounded-xl disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-sm;
+}
+/* ── Kanban Board ────────────────────────────────────────── */
+.kanban-board {
+  @apply flex gap-5 flex-col sm:flex-row flex-1;
+}
+
+/* ── Kanban Column ───────────────────────────────────────── */
+.kanban-column {
+  @apply flex flex-col flex-1 min-w-0 bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden transition-colors duration-300;
+}
+
+.app.dark .kanban-column {
+  @apply bg-gray-800 border-gray-700;
+}
+.column-header {
+  @apply flex items-center gap-3 px-5 py-4 border-b border-slate-200 transition-colors duration-300;
+}
+
+.app.dark .column-header {
+  @apply border-gray-700;
+}
+
+.column-title {
+  @apply font-semibold text-sm tracking-wide uppercase text-slate-600;
+}
+
+.app.dark .column-title {
+  @apply text-slate-300;
+}
+
+.column-count {
+  @apply ml-auto flex items-center justify-center min-w-[1.5rem] h-6 px-2 rounded-full bg-white border border-slate-200 text-xs font-bold text-slate-500 shadow-sm;
+}
+
+.app.dark .column-count {
+  @apply bg-gray-700 border-gray-600 text-slate-300;
+}
+
+.column-body {
+  @apply flex flex-col gap-2 p-4 overflow-y-auto flex-1;
+}
+
+.column-empty {
+  @apply flex flex-col items-center justify-center py-12 gap-2 text-slate-400;
+}
+.app.dark .column-empty {
+  @apply text-slate-600;
+}
+
+.column-empty svg {
+  @apply h-8 w-8 opacity-30;
+}
+
+.column-empty p {
+  @apply text-xs font-medium;
+}
+/* ── Task Card ───────────────────────────────────────────── */
+.task-card {
+  @apply flex items-start gap-3 bg-white rounded-xl border border-slate-100 shadow-sm hover:shadow-md px-4 py-3 transition-all duration-200;
+  animation: slideIn 0.2s ease-out forwards;
+}
+
+.app.dark .task-card {
+  @apply bg-gray-700 border-gray-600 hover:border-gray-500;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.task-toggle-btn {
+  @apply mt-0.5 flex-shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors;
+}
+
+.task-toggle-btn.todo {
+  @apply border-slate-300 hover:border-blue-500;
+}
+
+.app.dark .task-toggle-btn.todo {
+  @apply border-gray-500 hover:border-blue-400;
+}
+
+.task-toggle-btn.done {
+  @apply bg-emerald-500 border-emerald-500 text-white;
+}
+.task-title {
+  @apply flex-1 text-sm leading-relaxed text-slate-700 transition-colors;
+}
+
+.app.dark .task-title {
+  @apply text-slate-200;
+}
+
+.task-title.done {
+  @apply line-through text-slate-400;
+}
+
+.app.dark .task-title.done {
+  @apply text-gray-500;
+}
+.task-delete-btn {
+  @apply flex-shrink-0 opacity-0 text-slate-300 hover:text-red-500 transition-all duration-150;
+}
+
+.task-card:hover .task-delete-btn {
+  @apply opacity-100;
+}
+
+.app.dark .task-delete-btn {
+  @apply text-gray-600 hover:text-red-400;
+}
+
+/* ── Error Banner ────────────────────────────────────────── */
+.error-banner {
+  @apply flex items-start gap-3 bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm shadow-sm;
+}
+.app.dark .error-banner {
+  @apply bg-red-900/30 border-red-800 text-red-400;
+}
+
+/* ── Loading Spinner ─────────────────────────────────────── */
+.spinner-wrap {
+  @apply flex flex-col items-center justify-center py-20 gap-4;
+}
+
+.spinner {
+  @apply w-10 h-10 border-4 border-slate-200 border-t-blue-500 rounded-full animate-spin;
+}
+
+.app.dark .spinner {
+  @apply border-gray-700 border-t-blue-400;
+}
+.spinner-text {
+  @apply text-sm text-slate-500 font-medium;
+}
+
+.app.dark .spinner-text {
+  @apply text-slate-400;
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+.footer {
+  @apply text-center py-4 text-xs text-slate-400 border-t border-slate-200 bg-white transition-colors duration-300;
+}
+
+.app.dark .footer {
+  @apply bg-gray-800 border-gray-700 text-gray-500;
+}

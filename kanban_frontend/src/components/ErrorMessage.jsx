@@ -6,17 +6,11 @@
  *   message  {string}    — the error text to display
  *   onDismiss {function} — called when the user closes the banner
  */
-
 const ErrorMessage = ({ message, onDismiss }) => {
   if (!message) return null;
-
   return (
-    <div
-      role="alert"
-      className="flex items-start gap-3 bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm shadow-sm"
-    >
-      {/* Icon */}
-      <span className="mt-0.5 text-red-500 flex-shrink-0">
+    <div role="alert" className="error-banner">
+      <span className="mt-0.5 flex-shrink-0">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-4 w-4"
@@ -30,15 +24,10 @@ const ErrorMessage = ({ message, onDismiss }) => {
           />
         </svg>
       </span>
-
-      {/* Message */}
       <span className="flex-1">{message}</span>
-
-      {/* Dismiss */}
       <button
         onClick={onDismiss}
-        className="flex-shrink-0 text-red-400 hover:text-red-600 transition-colors"
-        aria-label="Dismiss error"
+        className="flex-shrink-0 hover:text-red-600 transition-colors"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
