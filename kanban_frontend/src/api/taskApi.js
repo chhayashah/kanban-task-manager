@@ -2,7 +2,9 @@
 
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000/tasks";
+const BASE_URL = process.env.REACT_APP_API_URL
+  ? `${process.env.REACT_APP_API_URL}/tasks`
+  : "http://localhost:5000/tasks";
 
 /**
  * Fetch all tasks from the API.
