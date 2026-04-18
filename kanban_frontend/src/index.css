@@ -309,3 +309,44 @@
 .app.dark .task-edit-input {
   @apply bg-gray-600 border-blue-500 text-slate-100;
 }
+/* ── Toast Container ─────────────────────────────────────── */
+.toast-container {
+  @apply fixed bottom-6 right-6 flex flex-col gap-2 z-50;
+}
+
+
+.toast-success {
+  @apply bg-emerald-50 border border-emerald-200 text-emerald-700;
+}
+
+.app.dark .toast-success {
+  @apply bg-emerald-900/40 border-emerald-700 text-emerald-300;
+}
+
+.toast-error {
+  @apply bg-red-50 border border-red-200 text-red-700;
+}
+
+.app.dark .toast-error {
+  @apply bg-red-900/40 border-red-700 text-red-300;
+}
+
+.toast-info {
+  @apply bg-blue-50 border border-blue-200 text-blue-700;
+}
+
+.app.dark .toast-info {
+  @apply bg-blue-900/40 border-blue-700 text-blue-300;
+}
+
+.toast-icon {
+  @apply flex-shrink-0;
+}
+
+.toast-message {
+  @apply flex-1;
+}
+
+.toast-close {
+  @apply flex-shrink-0 opacity-60 hover:opacity-100 transition-opacity;
+}

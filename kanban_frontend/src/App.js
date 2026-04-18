@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import useTasks from "./hooks/useTasks";
+import useToast from "./hooks/useToast"; 
 import KanbanBoard from "./components/KanbanBoard";
 import AddTaskForm from "./components/AddTaskForm";
 import LoadingSpinner from "./components/LoadingSpinner";
 import ErrorMessage from "./components/ErrorMessage";
+import Toast from "./components/Toast"; 
 
 const App = () => {
   const {
@@ -13,18 +15,38 @@ const App = () => {
     error,
     addTask,
     toggleStatus,
-    editTask,
     removeTask,
+    editTask,
   } = useTasks();
 
+  const { toasts, addToast, removeToast } = useToast(); 
   const [errorDismissed, setErrorDismissed] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
 
   const showError = error && !errorDismissed;
   const handleDismiss = () => setErrorDismissed(true);
+
+  // ── Handlers with Toast ──────────────────────────────
   const handleAddTask = async (title) => {
     setErrorDismissed(false);
     await addTask(title);
+    addToast("✅ Task added!", "success"); 
+  };
+
+  const handleToggle = async (task) => {
+    await toggleStatus(task);
+    const newStatus = task.status === "todo" ? "Done" : "To Do";
+    addToast(`↩️ Moved to ${newStatus}`, "info"); 
+  };
+
+  const handleDelete = async (id) => {
+    await removeTask(id);
+    addToast("🗑️ Task deleted!", "error"); 
+  };
+
+  const handleEdit = async (id, newTitle) => {
+    await editTask(id, newTitle);
+    addToast("✏️ Task updated!", "info"); 
   };
 
   const totalTasks = todoTasks.length + doneTasks.length;
@@ -34,6 +56,8 @@ const App = () => {
 
   return (
     <div className={darkMode ? "app dark" : "app"}>
+      {/* Toast Notifications */}
+      <Toast toasts={toasts} removeToast={removeToast} /> 
       {/* Header */}
       <header className="header">
         <div className="header-inner">
@@ -58,7 +82,6 @@ const App = () => {
             </div>
           </div>
 
-          {/* Progress */}
           {!loading && totalTasks > 0 && (
             <div className="progress-wrap">
               <div className="progress-label">
@@ -76,14 +99,12 @@ const App = () => {
             </div>
           )}
 
-          {/* Theme Toggle Button */}
           <button
             onClick={() => setDarkMode(!darkMode)}
             className="theme-toggle"
             title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
           >
             {darkMode ? (
-              /* Sun icon */
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -92,7 +113,6 @@ const App = () => {
                 <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.592-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.592z" />
               </svg>
             ) : (
-              /* Moon icon */
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -109,7 +129,6 @@ const App = () => {
           </button>
         </div>
       </header>
-
       {/* Main */}
       <main className="main-content">
         {showError && (
@@ -122,16 +141,15 @@ const App = () => {
           <KanbanBoard
             todoTasks={todoTasks}
             doneTasks={doneTasks}
-            onToggle={toggleStatus}
-            onEdit={editTask}
-            onDelete={removeTask}
+            onToggle={handleToggle} 
+            onDelete={handleDelete}
+            onEdit={handleEdit}
           />
         )}
       </main>
-
       {/* Footer */}
       <footer className="footer">
-        Mini Kanban Task Manager — React + Node.js + Express
+        Kanban Task Manager — React + Node.js + Express
       </footer>
     </div>
   );
