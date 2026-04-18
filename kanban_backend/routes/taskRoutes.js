@@ -4,30 +4,23 @@
  * Only routing and middleware wiring lives here — no handler logic.
  */
 
-const express = require("express");
-const router = express.Router();
-
-const {
+import express from "express";
+import {
   getAllTasks,
   createTask,
   updateTaskStatus,
   deleteTask,
-} = require("../controllers/taskController");
-const {
+} from "../controllers/taskController.js";
+import {
   validateCreateTask,
   validateUpdateStatus,
-} = require("../middleware/validateTask");
+} from "../middleware/validateTask.js";
 
-// GET    /tasks         → fetch all tasks
+const router = express.Router();
+
 router.get("/", getAllTasks);
-
-// POST   /tasks         → create a new task
 router.post("/", validateCreateTask, createTask);
-
-// PUT    /tasks/:id     → update task status
 router.put("/:id", validateUpdateStatus, updateTaskStatus);
-
-// DELETE /tasks/:id     → delete a task
 router.delete("/:id", deleteTask);
 
-module.exports = router;
+export default router;

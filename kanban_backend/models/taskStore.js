@@ -1,16 +1,6 @@
-/**
- * models/taskStore.js
- * In-memory "database" for tasks.
- * All CRUD operations live here — controllers never touch the array directly.
- *
- * Shape of each task:
- *   { id: number, title: string, status: "todo" | "done" }
- */
+import { generateId } from "../utils/generateId.js";
+import { TASK_STATUS } from "../constants/status.js";
 
-const { generateId } = require("../utils/generateId");
-const { TASK_STATUS } = require("../constants/status");
-
-// Seed data so the UI isn't empty on first load
 let tasks = [
   {
     id: generateId(),
@@ -27,17 +17,14 @@ let tasks = [
 ];
 
 const TaskStore = {
-  /** Return a shallow copy of the full list */
   getAll() {
     return [...tasks];
   },
 
-  /** Find a single task by numeric ID; returns undefined if not found */
   findById(id) {
     return tasks.find((t) => t.id === id);
   },
 
-  /** Create a new task with default status "todo" */
   create(title) {
     const task = {
       id: generateId(),
@@ -48,7 +35,6 @@ const TaskStore = {
     return task;
   },
 
-  /** Update the status of an existing task; returns updated task or null */
   updateStatus(id, status) {
     const task = tasks.find((t) => t.id === id);
     if (!task) return null;
@@ -56,7 +42,6 @@ const TaskStore = {
     return task;
   },
 
-  /** Remove a task by ID; returns true if removed, false if not found */
   delete(id) {
     const index = tasks.findIndex((t) => t.id === id);
     if (index === -1) return false;
@@ -65,4 +50,4 @@ const TaskStore = {
   },
 };
 
-module.exports = TaskStore;
+export default TaskStore;

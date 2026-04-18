@@ -4,11 +4,9 @@
  * Use these instead of hardcoding strings anywhere in the app.
  */
 
-const TASK_STATUS = {
+export const TASK_STATUS = {
   TODO: "todo",
   DONE: "done",
 };
 
-const VALID_STATUSES = Object.values(TASK_STATUS);
-
-module.exports = { TASK_STATUS, VALID_STATUSES };
+export const VALID_STATUSES = Object.values(TASK_STATUS);
