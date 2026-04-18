@@ -60,6 +60,37 @@ export const updateTaskStatus = (req, res, next) => {
     next(err);
   }
 };
+
+export const updateTaskTitle = (req, res, next) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    if (isNaN(id)) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid task ID." });
+    }
+
+    const { title } = req.body;
+    if (!title || title.trim() === "") {
+      return res
+        .status(400)
+        .json({ success: false, message: "Title cannot be empty." });
+    }
+
+    const task = TaskStore.findById(id);
+    if (!task) {
+      return res
+        .status(404)
+        .json({ success: false, message: `Task ${id} not found.` });
+    }
+
+    task.title = title.trim();
+    res.status(200).json({ success: true, data: task });
+  } catch (err) {
+    next(err);
+  }
+};
+
 /**
  * DELETE /tasks/:id
  * Deletes a task by ID.

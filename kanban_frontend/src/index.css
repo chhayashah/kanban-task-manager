@@ -267,3 +267,45 @@
 .app.dark .footer {
   @apply bg-gray-800 border-gray-700 text-gray-500;
 }
+
+/* ── Task Actions ────────────────────────────────────────── */
+.task-actions {
+  @apply flex items-center gap-1 opacity-0 transition-opacity duration-150;
+}
+
+.task-card:hover .task-actions {
+  @apply opacity-100;
+}
+
+.task-edit-btn {
+  @apply text-slate-300 hover:text-blue-500 transition-colors;
+}
+
+.app.dark .task-edit-btn {
+  @apply text-gray-600 hover:text-blue-400;
+}
+
+.task-save-btn {
+  @apply text-slate-300 hover:text-emerald-500 transition-colors;
+}
+
+.app.dark .task-save-btn {
+  @apply text-gray-600 hover:text-emerald-400;
+}
+
+.task-delete-btn {
+  @apply text-slate-300 hover:text-red-500 transition-colors;
+}
+
+.app.dark .task-delete-btn {
+  @apply text-gray-600 hover:text-red-400;
+}
+
+/* ── Edit Input ──────────────────────────────────────────── */
+.task-edit-input {
+  @apply flex-1 text-sm px-2 py-0.5 rounded-lg bg-slate-50 border border-blue-400 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+.app.dark .task-edit-input {
+  @apply bg-gray-600 border-blue-500 text-slate-100;
+}

@@ -1,16 +1,4 @@
-/**
- * components/KanbanColumn.jsx
- * A single Kanban column (To Do or Done).
- * Renders a header with title + count badge, then a scrollable list of TaskCards.
- *
- * Props:
- *   title    {string}   — column heading, e.g. "To Do"
- *   tasks    {Array}    — filtered task list for this column
- *   accent   {string}   — Tailwind color classes for the accent stripe
- *   onToggle {function} — passed down to TaskCard
- *   onDelete {function} — passed down to TaskCard
- *   emptyText {string}  — placeholder when column has no tasks
- */
+
 
 import TaskCard from "./TaskCard";
 
@@ -19,6 +7,7 @@ const KanbanColumn = ({
   tasks,
   accentColor,
   onToggle,
+  onEdit,
   onDelete,
   emptyText,
 }) => {
@@ -52,6 +41,7 @@ const KanbanColumn = ({
               key={task.id}
               task={task}
               onToggle={onToggle}
+              onEdit={onEdit}
               onDelete={onDelete}
             />
           ))

@@ -41,6 +41,12 @@ const TaskStore = {
     task.status = status;
     return task;
   },
+  updateTitle(id, title) {
+    const task = tasks.find((t) => t.id === id);
+    if (!task) return null;
+    task.title = title.trim();
+    return task;
+  },
 
   delete(id) {
     const index = tasks.findIndex((t) => t.id === id);

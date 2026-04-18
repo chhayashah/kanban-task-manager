@@ -1,12 +1,7 @@
-/**
- * api/taskApi.js
- * All HTTP calls to the backend live here.
- * Components never use axios directly — they go through this module.
- */
+
 
 import axios from "axios";
 
-// Base URL — Vite proxy forwards /tasks → http://localhost:5000/tasks
 const BASE_URL = "http://localhost:5000/tasks";
 
 /**
@@ -36,6 +31,10 @@ export const createTask = async (title) => {
  */
 export const updateTaskStatus = async (id, status) => {
   const res = await axios.put(`${BASE_URL}/${id}`, { status });
+  return res.data.data;
+};
+export const updateTaskTitle = async (id, title) => {
+  const res = await axios.patch(`${BASE_URL}/${id}/title`, { title });
   return res.data.data;
 };
 

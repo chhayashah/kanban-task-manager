@@ -13,6 +13,7 @@ const App = () => {
     error,
     addTask,
     toggleStatus,
+    editTask,
     removeTask,
   } = useTasks();
 
@@ -122,6 +123,7 @@ const App = () => {
             todoTasks={todoTasks}
             doneTasks={doneTasks}
             onToggle={toggleStatus}
+            onEdit={editTask}
             onDelete={removeTask}
           />
         )}

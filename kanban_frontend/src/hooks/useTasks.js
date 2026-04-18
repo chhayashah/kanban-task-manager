@@ -19,6 +19,7 @@ import {
   fetchAllTasks,
   createTask,
   updateTaskStatus,
+  updateTaskTitle,
   deleteTask,
 } from "../api/taskApi";
 
@@ -85,7 +86,24 @@ const useTasks = () => {
       );
       handleError(err);
     }
-  };
+    };
+    const editTask = async (id, newTitle) => {
+      clearError();
+      const previous = tasks;
+      // Optimistic update
+      setTasks((prev) =>
+        prev.map((t) => (t.id === id ? { ...t, title: newTitle } : t)),
+      );
+      try {
+        const updated = await updateTaskTitle(id, newTitle);
+        setTasks((prev) =>
+          prev.map((t) => (t.id === updated.id ? updated : t)),
+        );
+      } catch (err) {
+        setTasks(previous); // Rollback
+        handleError(err);
+      }
+    };
 
   // ── Delete task ──────────────────────────────────────────────────────────
   const removeTask = async (id) => {
@@ -113,7 +131,8 @@ const useTasks = () => {
     error,
     addTask,
     toggleStatus,
-    removeTask,
+      removeTask,
+    editTask,
   };
 };
 

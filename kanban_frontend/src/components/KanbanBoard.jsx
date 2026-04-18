@@ -11,7 +11,7 @@
  */
 import KanbanColumn from "./KanbanColumn";
 
-const KanbanBoard = ({ todoTasks, doneTasks, onToggle, onDelete }) => {
+const KanbanBoard = ({ todoTasks, doneTasks, onToggle, onEdit, onDelete }) => {
   return (
     <div className="kanban-board">
       <KanbanColumn
@@ -19,6 +19,7 @@ const KanbanBoard = ({ todoTasks, doneTasks, onToggle, onDelete }) => {
         tasks={todoTasks}
         accentColor="border-l-4 border-l-blue-500"
         onToggle={onToggle}
+        onEdit={onEdit}
         onDelete={onDelete}
         emptyText="No pending tasks"
       />
@@ -27,6 +28,7 @@ const KanbanBoard = ({ todoTasks, doneTasks, onToggle, onDelete }) => {
         tasks={doneTasks}
         accentColor="border-l-4 border-l-emerald-500"
         onToggle={onToggle}
+        onEdit={onEdit}
         onDelete={onDelete}
         emptyText="Nothing completed yet"
       />
